@@ -11,17 +11,17 @@ app.get('/bulletin', function(req, res){
 })
 
 io.on('connection', function(socket){
-  console.log('a user connected')
+  //console.log('a user connected')
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    //console.log('user disconnected');
   })
   socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
+    //console.log('message: ' + msg);
     io.emit('chat message', msg);
   });
   socket.on('message', function(id, message){
-    console.log(id)
-    console.log(message)
+    //console.log(id)
+    //console.log(message)
     io.to(id).emit('message', message)
   })
 });

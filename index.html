@@ -1,21 +1,25 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
-    <style>
-    
-    </style>
+    <title>Blue Bulletin - Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   </head>
-  <body>
-    <ul id="messages"></ul>
-    <form action="">
-        <h3>Board ID:</h3>
-        <input id="boardId" />
-        <h3>Message</h3>
-        <input id="message" /><br />
-        <button>Send</button>
-    </form>
-    <button onclick="window.location.href = 'bulletin';">Create Bulletin</button>
+  <body class="bg-primary text-center text-light">
+    <h1 class="text-light">Blue Bulletin</h1>
+    <div class="container bg-secondary py-2 my-3">
+      
+      <ul id="messages"></ul>
+      <form action="" class="pb-3">
+          <div class="form-group w-50 mx-auto">
+            <h3>Board ID:</h3>
+            <input id="boardId" />
+            <h3>Message</h3>
+            <textarea type="text" class="form-control" id="message" rows="4"></textarea>
+            <button type="submit" class="btn btn-primary mt-2">Send</button>
+          </div>
+      </form>
+    </div>
+    <button class="btn btn-secondary" onclick="window.location.href = 'bulletin';">Create Bulletin</button>
 
 
     <script src="/socket.io/socket.io.js"></script>
@@ -24,8 +28,10 @@
         $(function () {
             var socket = io();
             $('form').submit(function(e){
-                e.preventDefault();
+                //e.preventDefault();
                 socket.emit('message', $('#boardId').val(), $('#message').val())
+                alert("Message Sent!");
+                $('#message').val('')
                 return false;
             });
             socket.on('chat message', function(msg){
