@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Bulletin Board</title>
+    <style>
+      #title {
+          text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="title">
+        <h1>Bulletin Board</h1>
+        <h3 id="boardId">ID: </h3>
+    </div>
+    <ul id="board"></ul>
+    
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        $(function () {
+            var socket = io();
+            $('form').submit(function(e){
+                e.preventDefault();
+                socket.emit('chat message', $('#m').val());
+                $('#m').val('');
+                return false;
+            });
+            socket.on('connect', function() {
+                $('#boardId').html("ID: " + socket.id)
+                console.log(socket.id)
+            })
+            socket.on('message', function(msg){
+                console.log(msg)
+                $('#board').append($('<li>').text(msg));
+            });
+        });
+    </script>
+  </body>
+</html>
